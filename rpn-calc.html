@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<link href="bootstrap.min.css" rel="stylesheet">
+		<title>Easy RPN Calculator</title>
+		<script type="text/javascript" src="rpn-calc-engine.js"></script>
+	</head>
+	<body style="background-color:#FDFDFD">
+		<div style="margin-left:auto; margin-right:auto; text-align:center; width:500px; margin-top:40px;">
+      		<div class="row row-offcanvas row-offcanvas-right">
+					<strong>Full Stack</strong><br/>
+					<pre id="stackDisplay" style="min-height:45px; width:100%; background-color:#EEEEEE; margin-left:auto; margin-right:auto; border-radius:3px; font-size:16px;" placeholder="Full Stack"></pre>
+					<pre id="display" style="min-height:45px; width:100%; background-color:#EEEEEE; margin-left:auto; margin-right:auto; border-radius:3px; font-size:16px;"></pre>
+					<br/>
+					<div class="row" style="margin-top:5px;">
+							<button class="btn btn-default btn-lg" style="width:50px;" onclick="singleItemOperator('10exp')">10<sup>x</sup></button>
+							<button class="btn btn-default btn-lg" style="width:50px;" onclick="singleItemOperator('square')">x<sup>2</sup></button>
+							<button class="btn btn-default btn-lg" style="width:50px;" onclick="singleItemOperator('reciprocal')">x<sup>-1</sup></button>
+							<button class="btn btn-default btn-lg" style="width:50px;" onclick="singleItemOperator('sin')">sin</button>
+		            		<button class="btn btn-default btn-lg" style="width:50px;" onclick="singleItemOperator('sqrt')">&radic;</button>
+		            		<button class="btn btn-default btn-lg" style="width:50px;" onclick="operator('add')">+</button>
+							<button class="btn btn-default btn-lg" style="width:50px;" onclick="addToBuffer(this)">7</button>
+							<button class="btn btn-default btn-lg" style="width:50px;" onclick="addToBuffer(this)">8</button>
+							<button class="btn btn-default btn-lg" style="width:50px;" onclick="addToBuffer(this)">9</button>
+							<button class="btn btn-default btn-lg" style="width:50px;" onclick="popFromBuffer()">pop</button>
+					</div>
+					<div class="row" style="margin-top:5px;">
+							<a class="btn btn-default btn-lg" style="width:50px; padding-left:10px;" href="https://github.com/at1as/easy-rpn">info</a>
+							<button class="btn btn-default btn-lg" style="width:50px;" onclick="singleItemOperator('cube')">x<sup>3</sup></button>
+							<button class="btn btn-default btn-lg" style="width:50px;" onclick="constant('e')">e</button>
+							<button class="btn btn-default btn-lg" style="width:50px;" onclick="singleItemOperator('cos')">cos</button>
+		            		<button class="btn btn-default btn-lg" style="width:50px;" onclick="operator('power')">x<sup>y</sup></button>
+		            		<button class="btn btn-default btn-lg" style="width:50px;" onclick="operator('subtract')">-</button>
+							<button class="btn btn-default btn-lg" style="width:50px;" onclick="addToBuffer(this)">4</button>
+							<button class="btn btn-default btn-lg" style="width:50px;" onclick="addToBuffer(this)">5</button>
+							<button class="btn btn-default btn-lg" style="width:50px;" onclick="addToBuffer(this)">6</button>
+							<button class="btn btn-default btn-lg" style="width:50px;" onclick="swap()">swap</button>
+					</div>
+					<div class="row" style="margin-top:5px;">
+						<button class="btn btn-default btn-lg" style="width:50px;" onclick="constant('goldenRatio')">&phi;</button>
+							<button class="btn btn-default btn-lg" style="width:50px;" onclick="operator('root')"><sup>y</sup>&radic;x</button>
+							<button class="btn btn-default btn-lg" style="width:50px;" onclick="constant('pi')">&pi;</button>
+							<button class="btn btn-default btn-lg" style="width:50px;" onclick="singleItemOperator('tan')">tan</button>
+		            		<button class="btn btn-lg" style="width:50px;" onclick="clearInput()">C</button>
+		            		<button class="btn btn-default btn-lg" style="width:50px;" onclick="operator('multiply')">*</button>
+							<button class="btn btn-default btn-lg" style="width:50px;" onclick="addToBuffer(this)">1</button>
+							<button class="btn btn-default btn-lg" style="width:50px;" onclick="addToBuffer(this)">2</button>
+							<button class="btn btn-default btn-lg" style="width:50px;" onclick="addToBuffer(this)">3</button>
+							<button class="btn btn-default btn-lg" style="width:50px;" onclick="changePolarity()">+/-</button>
+					</div>
+					<div class="row" style="margin-top:5px;">
+							<button class="btn btn-default btn-lg" style="width:50px;" onclick="constant('random')">rand</button>
+							<button class="btn btn-default btn-lg" style="width:50px;" onclick="singleItemOperator('factorial')">n!</button> <!--TODO-->
+							<button class="btn btn-default btn-lg" style="width:50px;" onclick="singleItemOperator('log')">log</button>
+							<button class="btn btn-default btn-lg" style="width:50px;" onclick="singleItemOperator('ln')">ln</button>
+		            		<button class="btn btn-lg" style="width:50px;" onclick="clearAll()">AC</button>
+		            		<button class="btn btn-default btn-lg" style="width:50px;" onclick="operator('divide')">&divide;</button>
+							<button class="btn btn-default btn-lg" style="width:50px;" onclick="addToBuffer(this)">0</button>
+							<button class="btn btn-default btn-lg" style="width:50px;" onclick="addToBuffer(this)">.</button>
+							<button class="btn btn-primary btn-lg" style="width:100px;" onclick="addToStack()">Enter</button>
+					</div>
+				
+			</div>
+		</div>
+	</body>
+	</html>
+
