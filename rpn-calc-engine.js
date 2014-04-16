@@ -3,11 +3,15 @@ var currentInput = "";
 var constantEntered = false;
 
 function addToBuffer(keyPress) {
-	if (currentInput == "" && keyPress.innerHTML == 0) { }
+	if (constantEntered == true) {
+		currentInput = "";
+	}
+	if (currentInput == "0" && keyPress.innerHTML == 0) { }
 	else {
 		currentInput += keyPress.innerHTML;
 		display.innerHTML = currentInput;
 	}
+	constantEntered = false;
 }
 
 function addToBufferfromKey(keyInput) {
@@ -18,7 +22,7 @@ function addToBufferfromKey(keyInput) {
 function addToStack() {
 	if (currentInput != "" && currentInput != NaN) {
 		inputBuffer.push(currentInput);
-		stackDisplay.innerHTML = inputBuffer;
+		displayStack();
 	}
 	currentInput = "";
 	display.innerHTML = "";
@@ -28,6 +32,7 @@ function addToStack() {
 function clearInput() {
 	currentInput = "";
 	display.innerHTML = currentInput;
+	constantEntered = false;
 }
 
 function clearAll() {
@@ -35,6 +40,7 @@ function clearAll() {
 	inputBuffer = [];
 	display.innerHTML = currentInput;
 	stackDisplay.innerHTML = inputBuffer;
+	constantEntered = false;
 }
 
 function operator(action) {
@@ -63,9 +69,9 @@ function operator(action) {
 		else if (action == "root") {
 			inputBuffer.push(Math.pow(number1, (1/number2)));
 		}
-		stackDisplay.innerHTML = inputBuffer;
-		//displayStack(); <-- this function still needs work.
+		displayStack();
 		display.innerHTML = currentInput;
+		constantEntered = false;
 	}
 }
 
@@ -77,7 +83,12 @@ function singleItemOperator(action) {
 	if (inputBuffer.length > 0) {
 		number1 = parseFloat(inputBuffer.pop());
 		if (action == "sqrt") {
-			inputBuffer.push(Math.sqrt(number1));
+			if (number1 >= 0) {
+				inputBuffer.push(Math.sqrt(number1));
+			}
+			else{
+				alert("square root function requires a positive value")
+			}
 		}
 		else if (action == "ln") {
 			inputBuffer.push(Math.log(number1));
@@ -111,17 +122,16 @@ function singleItemOperator(action) {
 				else if (typeof numberInput === 'number' && numberInput % 1 === 0 && numberInput > 0) {
 					return( numberInput * factorial(numberInput - 1));
 				}
-				else {
-					
-				}
 			}
 			inputBuffer.push(factorial(number1));
 		}
 		else if (action == "10exp") {
 			inputBuffer.push(Math.pow(10, number1));
 		}
-		stackDisplay.innerHTML = inputBuffer;
+		//stackDisplay.innerHTML = inputBuffer;
+		displayStack();
 		display.innerHTML = currentInput;
+		constantEntered = false;
 	}
 }
 
@@ -142,7 +152,7 @@ function constant(constant) {
 		currentInput = val;
 		display.innerHTML = currentInput;
 	}
-	else {	//if number is in the buffer, multiply constant by existing number
+	else {	//if number is currently in the buffer, multiply constant by existing number
 		currentInput = val * parseFloat(currentInput);
 		display.innerHTML = currentInput;
 	}
@@ -153,7 +163,8 @@ function popFromBuffer() {
 	if (inputBuffer.length > 0) {
 		inputBuffer.pop();
 	}
-	stackDisplay.innerHTML = inputBuffer;
+	//stackDisplay.innerHTML = inputBuffer;
+	displayStack();
 }
 
 function swap() {
@@ -162,7 +173,8 @@ function swap() {
 		number2 = inputBuffer.pop();
 		inputBuffer.push(number1);
 		inputBuffer.push(number2);
-		stackDisplay.innerHTML = inputBuffer;
+		//stackDisplay.innerHTML = inputBuffer;
+		displayStack();
 	}
 }
 
@@ -173,15 +185,25 @@ function changePolarity() {
 	}
 }
 
-//TODO: restrict precision of output in the stack, so entries don't display entire float values
-/*function displayStack() {
+//Restrict display output to maximum 8 characters per array element
+function displayStack() {
 	stackDisplay.innerHTML = "";
 	for (i = 0; i < inputBuffer.length; i++) {
-		stackDisplay.innerHTML += inputBuffer[i].toPrecision(5) + ", ";
+		if (String(inputBuffer[i]).length > 8) {
+			stackDisplay.innerHTML += inputBuffer[i].toPrecision(8);
+		}
+		else {
+			stackDisplay.innerHTML += inputBuffer[i];
+		}
+		//unless last element, seperate list values with comma
+		if (i < inputBuffer.length -1) {
+			stackDisplay.innerHTML += ", ";
+		}
 	}
-}*/
+}
 
 document.onkeydown = function(e) {
+	constantEntered = false;
 	e = e || window.event;
     switch (e.keyCode) {
     	case 13:
