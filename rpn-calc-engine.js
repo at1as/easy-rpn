@@ -3,10 +3,10 @@ var currentInput = "";
 var constantEntered = false;
 
 function addToBuffer(keyPress) {
-	if (constantEntered == true) {
+	if (constantEntered === true) {
 		currentInput = "";
 	}
-	if (currentInput == "0" && keyPress.innerHTML == 0) { }
+	if (currentInput === "0" && keyPress.innerHTML === 0) { }
 	else {
 		currentInput += keyPress.innerHTML;
 		display.innerHTML = currentInput;
@@ -20,7 +20,7 @@ function addToBufferfromKey(keyInput) {
 }
 
 function addToStack() {
-	if (currentInput != "" && currentInput != NaN) {
+	if (currentInput !== "" && currentInput !== NaN) {
 		inputBuffer.push(currentInput);
 		displayStack();
 	}
@@ -44,29 +44,29 @@ function clearAll() {
 }
 
 function operator(action) {
-	if (currentInput != "") {
+	if (currentInput !== "") {
 		inputBuffer.push(currentInput);
 		currentInput = "";
 	}
 	if (inputBuffer.length > 1) {
 		number1 = parseFloat(inputBuffer.pop());
 		number2 = parseFloat(inputBuffer.pop());
-		if (action == "add") { 
+		if (action === "add") {
 			inputBuffer.push(number2 + number1);
 		}
-		else if (action == "subtract") {
+		else if (action === "subtract") {
 			inputBuffer.push(number2 - number1);
 		}
-		else if (action == "multiply") {
+		else if (action === "multiply") {
 			inputBuffer.push(number2 * number1);
 		}
-		else if (action == "divide") {
+		else if (action === "divide") {
 			inputBuffer.push(number2 / number1);
 		}
-		else if (action == "power") {
+		else if (action === "power") {
 			inputBuffer.push(Math.pow(number2, number1));
 		}
-		else if (action == "root") {
+		else if (action === "root") {
 			inputBuffer.push(Math.pow(number1, (1/number2)));
 		}
 		displayStack();
@@ -76,13 +76,13 @@ function operator(action) {
 }
 
 function singleItemOperator(action) {
-	if (currentInput != "" ) {
+	if (currentInput !== "" ) {
 		inputBuffer.push(currentInput);
 		currentInput = "";
 	}
 	if (inputBuffer.length > 0) {
 		number1 = parseFloat(inputBuffer.pop());
-		if (action == "sqrt") {
+		if (action === "sqrt") {
 			if (number1 >= 0) {
 				inputBuffer.push(Math.sqrt(number1));
 			}
@@ -90,34 +90,34 @@ function singleItemOperator(action) {
 				alert("square root function requires a positive value")
 			}
 		}
-		else if (action == "ln") {
+		else if (action === "ln") {
 			inputBuffer.push(Math.log(number1));
 		}
-		else if (action == "log") {
+		else if (action === "log") {
 			inputBuffer.push(Math.log(number1) / Math.LN10);
 		}
-		else if (action == "sin") {
+		else if (action === "sin") {
 			inputBuffer.push(Math.sin(number1));
 		}
-		else if (action == "cos") {
+		else if (action === "cos") {
 			inputBuffer.push(Math.cos(number1));
 		}
-		else if (action == "tan") {
+		else if (action === "tan") {
 			inputBuffer.push(Math.tan(number1));
 		}
-		else if (action == "reciprocal") {
+		else if (action === "reciprocal") {
 			inputBuffer.push(1/number1);
 		}
-		else if (action == "square") {
+		else if (action === "square") {
 			inputBuffer.push(number1 * number1);
 		}
-		else if (action == "cube") {
+		else if (action === "cube") {
 			inputBuffer.push(Math.pow(number1, 3));
 		}
-		else if (action == "factorial") {
+		else if (action === "factorial") {
 			function factorial(numberInput) {
-				if (numberInput === 0) { 
-					return 1; 
+				if (numberInput === 0) {
+					return 1;
 				}
 				else if (typeof numberInput === 'number' && numberInput % 1 === 0 && numberInput > 0) {
 					return( numberInput * factorial(numberInput - 1));
@@ -125,7 +125,7 @@ function singleItemOperator(action) {
 			}
 			inputBuffer.push(factorial(number1));
 		}
-		else if (action == "10exp") {
+		else if (action === "10exp") {
 			inputBuffer.push(Math.pow(10, number1));
 		}
 		//stackDisplay.innerHTML = inputBuffer;
@@ -136,19 +136,19 @@ function singleItemOperator(action) {
 }
 
 function constant(constant) {
-	if (constant == "e") {
+	if (constant === "e") {
 		val = Math.E;
 	}
-	else if (constant == "pi") {
+	else if (constant === "pi") {
 		val = Math.PI;
 	}
-	else if (constant == "random") {
+	else if (constant === "random") {
 		val = Math.random();
 	}
-	else if (constant == "goldenRatio") {
+	else if (constant === "goldenRatio") {
 		val = parseFloat(987/610);
 	}
-	if (currentInput == "") {
+	if (currentInput === "") {
 		currentInput = val;
 		display.innerHTML = currentInput;
 	}
@@ -179,7 +179,7 @@ function swap() {
 }
 
 function changePolarity() {
-	if (currentInput != "") {
+	if (currentInput !== "") {
 		currentInput = -1 * parseFloat(currentInput);
 		display.innerHTML = currentInput;
 	}
